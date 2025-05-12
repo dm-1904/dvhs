@@ -1,0 +1,55 @@
+.nav-header {
+  position: fixed;
+  top: 0;
+  background-color: white;
+  width: 100vw;
+}
+
+.nav-img-box {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-name-img-box {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  /* margin: 10px; */
+}
+
+.nav-logo-img {
+  width: 40%;
+  margin-right: 20px;
+}
+
+.presented-by {
+  width: 8vw;
+  height: auto;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.name-img-logo {
+  width: 100%;
+}
+
+.damon-picture {
+  width: 7%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 15%;
+  margin: 10px;
+}
+
+.nav-link-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  padding-bottom: 10px;
+}
+
+.nav-link {
+  color: black;
+}
