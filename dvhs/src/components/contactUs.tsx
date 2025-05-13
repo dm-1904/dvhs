@@ -54,17 +54,22 @@ export const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
     }
   };
   return (
-    <div className="form-box">
-      <h1>CONTACT US</h1>
+    <div className="contact-form-box">
+      <div className="contact-form-header">
+        <h2>CONTACT US</h2>
+      </div>
+      <hr />
       <div className="form-content">
         <form
           onSubmit={handleSubmit}
           className="contact-form"
           noValidate
         >
-          <div className="form-field">
+          <div className="contact-form-field">
             <input
+              required
               type="text"
+              name="name"
               className="contact-form-name"
               value={formData.name}
               onChange={handleChange}
@@ -72,8 +77,10 @@ export const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
             />
             {errors.name && <span className="error">{errors.name}</span>}
           </div>
-          <div className="form-field">
+          <div className="contact-form-field">
             <input
+              required
+              name="email"
               type="text"
               className="contact-form-email"
               value={formData.email}
@@ -82,8 +89,10 @@ export const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
             />
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
-          <div className="form-field">
+          <div className="contact-form-field">
             <input
+              required
+              name="phone"
               type="text"
               className="contact-form-phone"
               value={formData.phone}
@@ -92,8 +101,10 @@ export const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
             />
             {errors.phone && <span className="error">{errors.phone}</span>}
           </div>
-          <div className="form-field">
+          <div className="contact-form-field">
             <textarea
+              required
+              name="message"
               className="contact-form-message"
               rows={4}
               value={formData.message}
@@ -102,6 +113,28 @@ export const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
             />
             {errors.message && <span className="error">{errors.message}</span>}
           </div>
+          <span className="contact-form-concent">
+            *By clicking "Submit" you are expressly concenting to receive
+            communications from Desert Valley Home Search and its affiliates via
+            email, phone, or text. You may opt out at any time. Your information
+            will not be shared with or sold to any third parties. For more
+            information, please see our{" "}
+            <a
+              href=""
+              className="terms"
+            >
+              Terms of Use
+            </a>{" "}
+            and{" "}
+            <a
+              href=""
+              className="privacy"
+            >
+              Privacy Policy
+            </a>
+            .
+          </span>
+          <button className="contact-form-submit-btn">SUBMIT</button>
         </form>
       </div>
     </div>
