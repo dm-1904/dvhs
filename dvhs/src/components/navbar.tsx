@@ -19,46 +19,46 @@ const navItems: NavItem[] = [
 
 export const Navbar: React.FC = () => {
   return (
-    <header className="nav-header">
-      <div className="nav-box">
-        <div className="nav-img-box">
-          <img
-            src="/nav/DesertValleyHomeSearch-com.png"
-            alt="Desert Valley Home Search Logo"
-            className="nav-logo-img"
-          />
-          <div className="nav-name-img-box">
+    <div>
+      <header className="nav-header">
+        <div className="nav-box">
+          <div className="nav-img-box">
             <img
-              src="/nav/Presented-by.png"
-              alt=""
-              className="presented-by"
+              src="/nav/DesertValleyHomeSearch-com.png"
+              alt="Desert Valley Home Search Logo"
+              className="nav-logo-img"
             />
+            <div className="nav-name-img-box">
+              <img
+                src="/nav/Presented-by.png"
+                alt=""
+                className="presented-by"
+              />
+              <img
+                src="/nav/Damon-Ryon-2.png"
+                alt=""
+                className="name-img-logo"
+              />
+            </div>
             <img
-              src="/nav/Damon-Ryon-2.png"
+              src="/nav/Damon-P.jpg"
               alt=""
-              className="name-img-logo"
+              className="damon-picture"
             />
           </div>
-          <img
-            src="/nav/Damon-P.jpg"
-            alt=""
-            className="damon-picture"
-          />
+          <div className="nav-link-box">
+            {navItems.map(({ label, href }) => (
+              <Link
+                key={href}
+                to={href}
+                className="nav-link"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
         </div>
-        <div className="nav-link-box">
-          {navItems.map(({ label, href }) => (
-            <Link
-              key={href}
-              to={href}
-              className="nav-link"
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </header>
+      </header>
+    </div>
   );
 };
-
-// export default Navbar;

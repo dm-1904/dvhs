@@ -1,8 +1,12 @@
 .nav-header {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
-  background-color: white;
+  left: 0;
+  background-color: rgb(255, 255, 255);
   width: 100vw;
+  height: 17vw;
+  z-index: 100;
+  /* display: block; */
 }
 
 .nav-img-box {
@@ -48,8 +52,10 @@
   width: 80%;
   margin: 0 auto;
   padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .nav-link {
   color: black;
+  text-decoration: none;
 }
