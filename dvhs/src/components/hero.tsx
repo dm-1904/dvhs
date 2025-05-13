@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../css/hero.css";
 
 export interface SearchFormData {
   city: string;

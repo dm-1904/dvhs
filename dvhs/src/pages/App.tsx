@@ -1,18 +1,11 @@
-// import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "/vite.svg";
-import "../css/navbar.css";
-import "../css/hero.css";
 import "../css/index.css";
-import "../css/contact.css";
 import { Navbar } from "../components/navbar";
 import { Route, Routes } from "react-router-dom";
 import { SearchForm } from "../components/hero";
 import { ContactForm } from "../components/contactUs";
+import NeighborhoodGuides from "../components/neighborhoodGuides";
 
 function App() {
-  // const [count, setCount] = useState(0);
-
   return (
     <Routes>
       <Route
@@ -26,6 +19,7 @@ function App() {
             <ContactForm
               onSubmit={(data) => console.log("Contact form data:", data)}
             />
+            <NeighborhoodGuides />
           </div>
         }
       />

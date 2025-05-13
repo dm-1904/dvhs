@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../css/contact.css";
 
 interface ContactFormData {
   name: string;

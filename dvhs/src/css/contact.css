@@ -1,7 +1,8 @@
 /* Outer container */
 .contact-form-box {
   width: 80vw;
-  margin: 2rem auto;
+  /* margin-top: 3rem; */
+  margin: 5rem auto 2rem auto;
   background: #ffffff;
   /* padding: 2rem; */
   border-radius: 6px;
