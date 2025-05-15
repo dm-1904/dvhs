@@ -5,6 +5,8 @@ import { SearchForm } from "../components/hero";
 import { ContactForm } from "../components/contactUs";
 import NeighborhoodGuides from "../components/neighborhoodGuides";
 import FeaturedCarousel from "../components/featuredCarousel";
+import QuickSearches from "../components/quickSearches";
+import { Footer } from "../components/footer";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
             />
             <NeighborhoodGuides />
             <FeaturedCarousel />
+            <QuickSearches />
+            <Footer />
           </div>
         }
       />
