@@ -7,6 +7,7 @@ import NeighborhoodGuides from "../components/neighborhoodGuides";
 import FeaturedCarousel from "../components/featuredCarousel";
 import QuickSearches from "../components/quickSearches";
 import { Footer } from "../components/footer";
+import SearchBar from "../components/searchBar";
 
 function App() {
   return (
@@ -26,6 +27,14 @@ function App() {
             <FeaturedCarousel />
             <QuickSearches />
             <Footer />
+          </div>
+        }
+      />
+      <Route
+        path="search"
+        element={
+          <div className="app-search-container">
+            <Navbar /> <SearchBar />
           </div>
         }
       />
