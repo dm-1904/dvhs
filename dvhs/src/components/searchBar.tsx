@@ -9,7 +9,6 @@ export default function SearchBar() {
       className="search-bar-header"
       aria-label="filters"
     >
-      {/* ---------------- 1.  SEARCH BOX ---------------- */}
       <div className="search-bar-box">
         <form
           onSubmit={(e) => {
@@ -25,38 +24,34 @@ export default function SearchBar() {
             aria-label="Search"
           />
 
-          {query && (
+          {/* {query && (
             <button
               type="button"
               className="icon-btn clear-btn"
               onClick={() => setQuery("")}
               aria-label="Clear search text"
             >
-              ×
+              Clear
             </button>
-          )}
+          )} */}
 
           <button
             type="submit"
             className="icon-btn submit-btn"
             aria-label="Submit search"
           >
-            🔍
+            Search
           </button>
         </form>
       </div>
 
-      {/* ---------------- 2.  FILTER BUTTONS ------------- */}
       <div className="search-bar-filter-row">
-        <button className="search-bar-filter-btn">For Sale ▾</button>
         <button className="search-bar-filter-btn">Price ▾</button>
         <button className="search-bar-filter-btn">Beds & Baths ▾</button>
         <button className="search-bar-filter-btn">Home Type ▾</button>
         <button className="search-bar-filter-btn">More ▾</button>
 
-        <div className="search-bar-right-actions">
-          <button className="search-bar-save-btn">Save search</button>
-        </div>
+        <button className="search-bar-save-btn">Save search</button>
       </div>
     </section>
   );
