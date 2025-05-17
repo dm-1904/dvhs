@@ -23,8 +23,12 @@
   width: 50vw;
   height: 48px;
   padding: 0 3rem 0 1rem;
-  border: 1px solid #cfd7de;
-  border-radius: 8px;
+  border-top: 1px solid #cfd7de;
+  border-bottom: 1px solid #cfd7de;
+  border-left: 1px solid #cfd7de;
+  border-right: none;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
   font-size: 1rem;
   background: #fff;
 }
@@ -36,6 +40,18 @@
   background: white;
   color: black;
   border: 1px solid #cfd7de;
+  border-radius: none;
+}
+
+#search-btn {
+  border-radius: none;
+  border: none;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top: 1px solid #cfd7de;
+  border-bottom: 1px solid #cfd7de;
+  border-left: none;
+  border-right: 1px solid #cfd7de;
 }
 
 .search-bar-filter-row {
@@ -61,8 +77,7 @@
   border-color: #999;
 }
 
-.search-bar-save-btn,
-.icon-btn {
+.search-bar-save-btn {
   height: 48px;
   background: #006aff;
   color: #fff;

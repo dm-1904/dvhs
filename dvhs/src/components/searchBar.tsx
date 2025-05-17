@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../css/searchHeader.css";
+import "../css/searchBar.css";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("Surprise AZ homes");
@@ -18,7 +18,7 @@ export default function SearchBar() {
         >
           <input
             type="text"
-            placeholder="Address, neighborhood, city, ZIP"
+            placeholder="Search by city, neighborhood, zip code, or MLS#"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             aria-label="Search"
@@ -38,6 +38,7 @@ export default function SearchBar() {
           <button
             type="submit"
             className="icon-btn submit-btn"
+            id="search-btn"
             aria-label="Submit search"
           >
             Search
