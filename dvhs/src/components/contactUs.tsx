@@ -57,7 +57,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
   return (
     <div className="contact-form-box">
       <div className="contact-form-header">
-        <h2>CONTACT US</h2>
+        <h2>LET'S CONNECT!</h2>
       </div>
       <hr />
       <div className="form-content">

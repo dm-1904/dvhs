@@ -8,6 +8,7 @@ import FeaturedCarousel from "../components/featuredCarousel";
 import QuickSearches from "../components/quickSearches";
 import { Footer } from "../components/footer";
 import SearchBar from "../components/searchBar";
+import { About } from "../components/about";
 
 function App() {
   return (
@@ -34,7 +35,20 @@ function App() {
         path="search"
         element={
           <div className="app-search-container">
-            <Navbar /> <SearchBar />
+            <Navbar /> <SearchBar /> <Footer />
+          </div>
+        }
+      />
+      <Route
+        path="about"
+        element={
+          <div className="app-about-container">
+            <Navbar />
+            <About />
+            <ContactForm
+              onSubmit={(data) => console.log("Contact form data:", data)}
+            />
+            <Footer />
           </div>
         }
       />

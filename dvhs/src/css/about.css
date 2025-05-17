@@ -1,0 +1,49 @@
+.about-header-box {
+  background-color: black;
+  padding: 20px;
+}
+
+.about-header-box h1 {
+  color: white;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.about-text {
+  display: flex;
+  padding: 30px;
+  justify-content: space-around;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.about-text-box {
+  width: 80%;
+  padding: 20px;
+}
+
+.about-text-box p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+.about-image {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+}
+
+.about-image img {
+  /* width: 70%; */
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.about-text img {
+  width: 70%;
+  height: auto;
+  object-fit: cover;
+}
