@@ -9,6 +9,7 @@ import QuickSearches from "../components/quickSearches";
 import { Footer } from "../components/footer";
 import SearchBar from "../components/searchBar";
 import { About } from "../components/about";
+import { BlogHome } from "../components/blog";
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
         element={
           <div className="app-blog-container">
             <Navbar />
+            <BlogHome />
             <div className="blog-content-box"></div>
           </div>
         }
