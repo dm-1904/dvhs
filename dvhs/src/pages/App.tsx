@@ -52,6 +52,39 @@ function App() {
           </div>
         }
       />
+      <Route
+        path="contact"
+        element={
+          <div className="app-contact-container">
+            <Navbar />
+            <div className="pre-connect-content-box">
+              <h1>I'd love to hear from you!</h1>
+              <span>
+                Just fill out the form below and I'll get back to you as soon as
+                possible.
+                <br />
+                Or just let me know in the Message box when is a good time to
+                talk or if you prefer text or email.
+                <div className="pre-connect-footer" />I look forward to hearing
+                from you!
+              </span>
+            </div>
+            <ContactForm
+              onSubmit={(data) => console.log("Contact form data:", data)}
+            />
+            <Footer />
+          </div>
+        }
+      />
+      <Route
+        path="blog"
+        element={
+          <div className="app-blog-container">
+            <Navbar />
+            <div className="blog-content-box"></div>
+          </div>
+        }
+      />
     </Routes>
   );
 }

@@ -8,3 +8,27 @@ body {
   flex-direction: column;
   /* gap: 2rem; */
 }
+
+.pre-connect-content-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.pre-connect-content-box h1 {
+  font-size: 2.5rem;
+  color: #333;
+}
+.pre-connect-content-box span {
+  font-size: 1.3rem;
+  color: #666;
+  line-height: 1.5;
+  /* text-align: center; */
+  max-width: 800px;
+}
+
+.pre-connect-footer {
+  margin-top: 20px;
+}
