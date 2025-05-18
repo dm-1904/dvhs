@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../css/navbar.css";
+import { useState } from "react";
 
 interface NavItem {
   label: string;
@@ -19,6 +20,7 @@ const navItems: NavItem[] = [
 ];
 
 export const Navbar: React.FC = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div>
       <header className="nav-header">
@@ -47,7 +49,16 @@ export const Navbar: React.FC = () => {
               className="damon-picture"
             />
           </div>
-          <div className="nav-link-box">
+          <button
+            className={`nav-toggle ${menuOpen ? "open" : ""}`}
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="Toggle menu"
+          >
+            <span className="hamburger-bar" />
+            <span className="hamburger-bar" />
+            <span className="hamburger-bar" />
+          </button>
+          {/* <div className="nav-link-box">
             {navItems.map(({ label, href }) => (
               <Link
                 key={href}
@@ -57,7 +68,23 @@ export const Navbar: React.FC = () => {
                 {label}
               </Link>
             ))}
-          </div>
+          </div> */}
+
+          <nav
+            className={`nav-link-box ${menuOpen ? "open" : ""}`}
+            aria-expanded={menuOpen}
+          >
+            {navItems.map(({ label, href }) => (
+              <Link
+                key={href}
+                to={href}
+                className="nav-link"
+                onClick={() => setMenuOpen(false)}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </header>
     </div>

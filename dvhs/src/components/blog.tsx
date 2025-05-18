@@ -9,6 +9,7 @@ interface Post {
   image: string;
   excerpt: string;
   slug: string;
+  category: string;
 }
 
 /* ───────────────────────────────────────────
@@ -17,25 +18,66 @@ const ALL_POSTS: Post[] = [
   {
     id: 1,
     title: "Phoenix Market Update – May 2025",
-    date: "May 10, 2025",
-    image: "/blog/may_market.jpg",
-    excerpt:
-      "Inventory is creeping up, but mortgage rates remain steady. Here's what it means for buyers and sellers…",
     slug: "/blog/phoenix-market-update-may-2025",
+    image: "/blog/may_market.jpg",
+    excerpt: "Inventory is creeping up…",
+    date: "May 10, 2025",
+    category: "Market News",
   },
   {
     id: 2,
-    title: "5 Mistakes to Avoid When Pricing Your West Valley Home",
-    date: "Apr 28, 2025",
+    title: "5 Pricing Mistakes in West Valley",
+    slug: "/blog/pricing-mistakes-west-valley",
     image: "/blog/pricing_mistakes.jpg",
-    excerpt:
-      "Setting the right price is the #1 factor in how fast (and for how much) your property sells…",
-    slug: "/blog/5-pricing-mistakes-west-valley",
+    excerpt: "Setting the right price…",
+    date: "Apr 28, 2025",
+    category: "Seller Tips",
   },
-  // …more posts…
+  {
+    id: 3,
+    title: "Buyer’s Guide to Phoenix Suburbs",
+    slug: "/blog/buyers-guide-suburbs",
+    image: "/blog/buyers_guide.jpg",
+    excerpt: "What to look out for…",
+    date: "Apr 15, 2025",
+    category: "Buyer Tips",
+  },
+  {
+    id: 4,
+    title: "Understanding Mortgage Rates",
+    slug: "/blog/understanding-mortgage-rates",
+    image: "/blog/mortgage_rates.jpg",
+    excerpt: "Why rates fluctuate…",
+    date: "Apr 2, 2025",
+    category: "Finance",
+  },
+  {
+    id: 5,
+    title: "How to Stage Your Home",
+    slug: "/blog/how-to-stage-your-home",
+    image: "/blog/staging.jpg",
+    excerpt: "First impressions matter…",
+    date: "Mar 20, 2025",
+    category: "Seller Tips",
+  },
+  {
+    id: 6,
+    title: "Retirement Communities in Phoenix",
+    slug: "/blog/retirement-communities-phoenix",
+    image: "/blog/retirement_communities.jpg",
+    excerpt: "Discover the best retirement communities in Phoenix.",
+    date: "May 11, 2025",
+    category: "Retirement Communities",
+  },
 ];
 
-const RECENT = ALL_POSTS.slice(0, 5);
+const groupedPosts = ALL_POSTS.reduce<Record<string, Post[]>>((acc, post) => {
+  acc[post.category] = acc[post.category] || [];
+  acc[post.category].push(post);
+  return acc;
+}, {});
+
+const RECENT = ALL_POSTS.slice(-5).reverse();
 
 export const BlogHome: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -46,32 +88,53 @@ export const BlogHome: React.FC = () => {
         <button
           className="close-btn"
           onClick={() => setMenuOpen(false)}
+          aria-label="Close menu"
         >
           X
         </button>
         <h3>All Posts</h3>
-        <ul>
+        {/* <ul>
           {ALL_POSTS.map((post) => (
             <li key={post.id}>
               <a href={post.slug}>{post.title}</a>
             </li>
           ))}
-        </ul>
+        </ul> */}
+
+        <nav className="menu-categories">
+          {Object.entries(groupedPosts).map(([category, posts]) => (
+            <div className="category-section">
+              <h3>{category}</h3>
+              <ul>
+                {posts.map((posts) => (
+                  <li key={posts.id}>
+                    <a
+                      href={posts.slug}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {posts.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </nav>
       </aside>
 
       <header className="blog-header">
         <button
           className="menu-btn"
           onClick={() => setMenuOpen(true)}
+          aria-label="Open posts menu"
         >
           ☰ Posts
         </button>
         <h1>Phoenix Valley Real-Estate Insights</h1>
         <p className="synopsis">
-          Welcome to the Ryon Group Blog — your resource for up-to-date market
-          insights, tips for buyers &amp; sellers, and everything happening in
-          Greater Phoenix real estate. We publish new posts regularly, so check
-          back often!
+          Welcome to your resource for up-to-date market insights, tips for
+          buyers &amp; sellers, and everything happening in Greater Phoenix real
+          estate. We publish new posts regularly, so check back often!
         </p>
       </header>
 
