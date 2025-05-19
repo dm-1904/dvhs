@@ -11,6 +11,9 @@ import SearchBar from "../components/searchBar";
 import { About } from "../components/about";
 import { BlogHome } from "../components/blog";
 import { MortgageRate } from "../components/mortgageRate";
+import { Login } from "../components/login";
+import { SignUp } from "../components/signUp";
+import { HomeValueForm } from "../components/homeValueForm";
 
 function App() {
   return (
@@ -30,6 +33,7 @@ function App() {
             <FeaturedCarousel />
             <QuickSearches />
             <Footer />
+            <MortgageRate />
           </div>
         }
       />
@@ -37,7 +41,18 @@ function App() {
         path="search"
         element={
           <div className="app-search-container">
-            <Navbar /> <SearchBar /> <Footer />
+            <Navbar /> <SearchBar /> <Footer /> <MortgageRate />
+          </div>
+        }
+      />
+      <Route
+        path="featured"
+        element={
+          <div className="app-featured-container">
+            <Navbar />
+            <FeaturedCarousel />
+            <Footer />
+            <MortgageRate />
           </div>
         }
       />
@@ -51,6 +66,7 @@ function App() {
               onSubmit={(data) => console.log("Contact form data:", data)}
             />
             <Footer />
+            <MortgageRate />
           </div>
         }
       />
@@ -59,7 +75,7 @@ function App() {
         element={
           <div className="app-contact-container">
             <Navbar />
-            <MortgageRate />
+
             <div className="pre-connect-content-box">
               <h1>I'd love to hear from you!</h1>
               <span>
@@ -76,6 +92,28 @@ function App() {
               onSubmit={(data) => console.log("Contact form data:", data)}
             />
             <Footer />
+            <MortgageRate />
+          </div>
+        }
+      />
+      <Route
+        path="home-estimate"
+        element={
+          <div className="app-home-estimate-container">
+            <Navbar />
+            <div className="home-estimate-content-box">
+              <h1>Home Estimate</h1>
+              <span>
+                Get a free home estimate by filling out the form below.
+                <br />I will get back to you as soon as possible with your
+                estimate.
+              </span>
+            </div>
+            <HomeValueForm
+              onSubmit={(data) => console.log("Home value form data:", data)}
+            />
+            <Footer />
+            <MortgageRate />
           </div>
         }
       />
@@ -86,6 +124,30 @@ function App() {
             <Navbar />
             <BlogHome />
             <div className="blog-content-box"></div>
+            <Footer />
+            <MortgageRate />
+          </div>
+        }
+      />
+      <Route
+        path="login"
+        element={
+          <div className="app-login-container">
+            <Navbar />
+            <Login onSubmit={(data) => console.log("Login data:", data)} />
+            <Footer />
+            <MortgageRate />
+          </div>
+        }
+      />
+      <Route
+        path="signup"
+        element={
+          <div className="app-signup-container">
+            <Navbar />
+            <SignUp onSubmit={(data) => console.log("Signup data:", data)} />
+            <Footer />
+            <MortgageRate />
           </div>
         }
       />

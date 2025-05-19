@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "../css/hero.css";
 
 export interface SearchFormData {
@@ -50,7 +51,12 @@ export function SearchForm({ onSearch }: SearchFormProps) {
         <div className="form-box">
           <div className="buy-or-sell">
             <h2 className="buy-a-home">Buy a Home</h2>
-            <h2 className="sell-a-home">Sell a Home</h2>
+            <Link
+              to="/home-estimate"
+              className="sell-a-home"
+            >
+              Sell a Home
+            </Link>
           </div>
           <div className="form-container">
             <form

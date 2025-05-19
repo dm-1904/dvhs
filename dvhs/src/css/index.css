@@ -9,7 +9,8 @@ body {
   /* gap: 2rem; */
 }
 
-.pre-connect-content-box {
+.pre-connect-content-box,
+.home-estimate-content-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,11 +18,13 @@ body {
   margin-top: 30px;
 }
 
-.pre-connect-content-box h1 {
+.pre-connect-content-box h1,
+.home-estimate-content-box h1 {
   font-size: 2.5rem;
   color: #333;
 }
-.pre-connect-content-box span {
+.pre-connect-content-box span,
+.home-estimate-content-box span {
   font-size: 1.3rem;
   color: #666;
   line-height: 1.5;
