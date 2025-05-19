@@ -10,6 +10,7 @@ import { Footer } from "../components/footer";
 import SearchBar from "../components/searchBar";
 import { About } from "../components/about";
 import { BlogHome } from "../components/blog";
+import { MortgageRate } from "../components/mortgageRate";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
         element={
           <div className="app-contact-container">
             <Navbar />
+            <MortgageRate />
             <div className="pre-connect-content-box">
               <h1>I'd love to hear from you!</h1>
               <span>

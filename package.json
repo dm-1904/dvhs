@@ -2,5 +2,8 @@
   "dependencies": {
     "keen-slider": "^6.8.6",
     "react-router-dom": "^6.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.19"
   }
 }

@@ -94,6 +94,20 @@ export const Footer: React.FC = () => {
           be responsible for any typographical errors, misinformation, misprints
           and shall be held totally harmless. {lastUpdated}
         </p>
+        <p>
+          *The Current Mortgage Interest Rate data is from a third party
+          provider. Deal Landers Arizona Realty takes no responsibility for the
+          accuracy of this data. Rates are subject to change at any time and may
+          not reflect current rates. Please check with your lender for the most
+          current rates. The rates displayed are for informational purposes only
+          and do not constitute an offer to lend. Actual rates may vary based on
+          your creditworthiness, loan amount, and other factors. Deal Landers
+          Arizona Realty is not a lender and does not provide mortgage services.
+          These rates are provided for informational purposes only and should
+          not be relied upon as financial advice. Please consult with a
+          qualified financial advisor or mortgage professional for personalized
+          advice regarding your specific situation. {lastUpdated}
+        </p>
       </div>
     </>
   );
