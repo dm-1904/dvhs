@@ -15,6 +15,7 @@ import { Login } from "../components/login";
 import { SignUp } from "../components/signUp";
 import { HomeValueForm } from "../components/homeValueForm";
 import { TermsOfUse } from "../components/termsOfUse";
+import { PrivacyPolicy } from "../components/privacyPolicy";
 
 function App() {
   return (
@@ -161,6 +162,17 @@ function App() {
           <div className="app-terms-of-use-container">
             <Navbar />
             <TermsOfUse />
+            <Footer />
+            {/* <MortgageRate /> */}
+          </div>
+        }
+      />
+      <Route
+        path="privacy-policy"
+        element={
+          <div className="app-privacy-policy-container">
+            <Navbar />
+            <PrivacyPolicy />
             <Footer />
             {/* <MortgageRate /> */}
           </div>
