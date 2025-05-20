@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "keen-slider": "^6.8.6",
-    "react-router-dom": "^6.30.0"
+    "react-router-dom": "^6.30.0",
+    "swiper": "^11.2.7"
   },
   "devDependencies": {
     "@types/node": "^22.15.19"

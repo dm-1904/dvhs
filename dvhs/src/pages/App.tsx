@@ -10,7 +10,7 @@ import { Footer } from "../components/footer";
 import SearchBar from "../components/searchBar";
 import { About } from "../components/about";
 import { BlogHome } from "../components/blog";
-import { MortgageRate } from "../components/mortgageRate";
+// import { MortgageRate } from "../components/mortgageRate";
 import { Login } from "../components/login";
 import { SignUp } from "../components/signUp";
 import { HomeValueForm } from "../components/homeValueForm";
@@ -33,7 +33,7 @@ function App() {
             <FeaturedCarousel />
             <QuickSearches />
             <Footer />
-            <MortgageRate />
+            {/* <MortgageRate /> */}
           </div>
         }
       />
@@ -41,7 +41,10 @@ function App() {
         path="search"
         element={
           <div className="app-search-container">
-            <Navbar /> <SearchBar /> <Footer /> <MortgageRate />
+            <Navbar />
+            <SearchBar />
+            <Footer />
+            {/* <MortgageRate /> */}
           </div>
         }
       />
@@ -52,7 +55,7 @@ function App() {
             <Navbar />
             <FeaturedCarousel />
             <Footer />
-            <MortgageRate />
+            {/* <MortgageRate /> */}
           </div>
         }
       />
@@ -66,7 +69,7 @@ function App() {
               onSubmit={(data) => console.log("Contact form data:", data)}
             />
             <Footer />
-            <MortgageRate />
+            {/* <MortgageRate /> */}
           </div>
         }
       />
@@ -92,7 +95,7 @@ function App() {
               onSubmit={(data) => console.log("Contact form data:", data)}
             />
             <Footer />
-            <MortgageRate />
+            {/* <MortgageRate /> */}
           </div>
         }
       />
@@ -113,7 +116,7 @@ function App() {
               onSubmit={(data) => console.log("Home value form data:", data)}
             />
             <Footer />
-            <MortgageRate />
+            {/* <MortgageRate /> */}
           </div>
         }
       />
@@ -125,7 +128,7 @@ function App() {
             <BlogHome />
             <div className="blog-content-box"></div>
             <Footer />
-            <MortgageRate />
+            {/* <MortgageRate /> */}
           </div>
         }
       />
@@ -136,7 +139,7 @@ function App() {
             <Navbar />
             <Login onSubmit={(data) => console.log("Login data:", data)} />
             <Footer />
-            <MortgageRate />
+            {/* <MortgageRate /> */}
           </div>
         }
       />
@@ -147,7 +150,7 @@ function App() {
             <Navbar />
             <SignUp onSubmit={(data) => console.log("Signup data:", data)} />
             <Footer />
-            <MortgageRate />
+            {/* <MortgageRate /> */}
           </div>
         }
       />

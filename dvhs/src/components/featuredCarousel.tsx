@@ -1,6 +1,13 @@
-import { useKeenSlider } from "keen-slider/react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import "keen-slider/keen-slider.min.css";
+
+/* ─────────── Swiper imports ─────────── */
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 import "../css/featuredCarousel.css";
 
 interface Listing {
@@ -76,71 +83,82 @@ const listings: Listing[] = [
     href: "/listings/6",
   },
 ];
+
 export default function FeaturedCarousel() {
-  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-    slides: { perView: 3, spacing: 18 },
-    breakpoints: {
-      "(max-width: 1200px)": {
-        slides: { perView: 2.2, spacing: 16 },
-      },
-      "(max-width: 700px)": {
-        slides: { perView: 1.2, spacing: 12 },
-      },
-    },
-    loop: true,
-    dragSpeed: 0.8,
-  });
+  /* create refs so we can use custom arrow buttons */
+  const prevRef = useRef<HTMLButtonElement | null>(null);
+  const nextRef = useRef<HTMLButtonElement | null>(null);
+
   return (
     <section className="featured-wrapper">
       <h2 className="featured-heading">Featured Listings</h2>
-      <button
-        className="arrow left"
-        onClick={() => instanceRef.current?.prev()}
-      />
-      <button
-        className="arrow right"
-        onClick={() => instanceRef.current?.next()}
-      />
-      <div
-        ref={sliderRef}
-        className="keen-slider card-slider"
-      >
-        {listings.map((listing) => (
-          <Link
-            to={listing.href}
-            key={listing.id}
-            className="keen-slider__slide listing-card"
-          >
-            <img
-              src={listing.image}
-              alt={listing.address}
-            />
-            <div className="card-body">
-              <h3 className="price">{listing.price}</h3>
-              <div className="badge-heart">
-                <span className="badge">VIRTUAL TOUR</span>
-                <span className="heart">♡</span>
-              </div>
-              <p className="address">{listing.address}</p>
-              <div className="meta">
-                <span>{listing.beds}</span> | <span>{listing.baths}</span> |{" "}
-                <span>{listing.sqft}</span>
-              </div>
-              <span className="status">ACTIVE</span>
-            </div>
-          </Link>
-        ))}
-      </div>
 
-      <div className="dots">
-        {listings.slice(0, 2).map((_, i) => (
-          <button
-            key={i}
-            className="dot"
-            onClick={() => instanceRef.current?.moveToIdx(i * 3)}
-          />
+      {/* custom arrows */}
+      <button
+        ref={prevRef}
+        className="nav-arrow prev"
+        aria-label="Previous"
+      />
+      <button
+        ref={nextRef}
+        className="nav-arrow next"
+        aria-label="Next"
+      />
+
+      <Swiper
+        modules={[Navigation, Pagination]}
+        navigation={{
+          prevEl: prevRef.current,
+          nextEl: nextRef.current,
+        }}
+        onBeforeInit={(swiper: import("swiper").Swiper) => {
+          // @ts-expect-error: swiper types don’t know our refs
+          swiper.params.navigation.prevEl = prevRef.current;
+          // @ts-expect-error: swiper types don’t know our refs
+          swiper.params.navigation.nextEl = nextRef.current;
+        }}
+        pagination={{ clickable: true }}
+        loop
+        spaceBetween={16}
+        slidesPerView={3}
+        breakpoints={{
+          1200: { slidesPerView: 3 },
+          700: { slidesPerView: 2 },
+          0: { slidesPerView: 1.2 },
+        }}
+        className="card-slider"
+      >
+        {listings.map((l) => (
+          <SwiperSlide key={l.id}>
+            <Link
+              to={l.href}
+              className="listing-card"
+            >
+              <img
+                src={l.image}
+                alt={l.address}
+              />
+              <div className="card-body">
+                <h3 className="price">{l.price}</h3>
+
+                <div className="badge-heart">
+                  <span className="badge">VIRTUAL TOUR</span>
+                  <span className="heart">♡</span>
+                </div>
+
+                <p className="address">{l.address}</p>
+
+                <div className="meta">
+                  <span>{l.beds}</span> | <span>{l.baths}</span> |{" "}
+                  <span>{l.sqft}</span>
+                </div>
+
+                <span className="status">ACTIVE</span>
+              </div>
+            </Link>
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
 
       <Link
         to="/listings"

@@ -1,8 +1,9 @@
+/* ---------- layout ---------- */
 .featured-wrapper {
   position: relative;
-  padding: 1rem 2rem 4rem;
   width: 80vw;
   margin: 0 auto;
+  padding: 1rem 2rem 4rem; /* no side-padding -> no clipping */
   text-align: center;
 }
 
@@ -13,23 +14,31 @@
   color: #2e343b;
 }
 
+/* ---------- Swiper track ---------- */
 .card-slider {
-  overflow: visible;
-  height: 530px;
-  padding: 8px;
+  height: 530px; /* matches previous design */
 }
 
+/* remove default right/left padding Swiper injects */
+.swiper-wrapper {
+  box-sizing: content-box;
+}
+
+/* ---------- slide/card ---------- */
+.swiper-slide {
+  height: auto;
+}
 .listing-card {
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0 0 0 / 0.48);
+  box-shadow: 0 0 8px rgb(0 0 0 / 0.48);
   display: flex;
   flex-direction: column;
   text-decoration: none;
   color: inherit;
   transition: transform 0.3s ease;
+  height: 100%;
 }
-
 .listing-card:hover {
   transform: translateY(-4px);
 }
@@ -46,7 +55,6 @@
   padding: 1rem;
   text-align: left;
 }
-
 .price {
   font-size: 1.25rem;
   font-weight: 700;
@@ -59,7 +67,6 @@
   gap: 0.5rem;
   margin-bottom: 0.75rem;
 }
-
 .badge {
   background: #263746;
   color: #fff;
@@ -67,7 +74,6 @@
   font-size: 0.7rem;
   border-radius: 4px;
 }
-
 .heart {
   margin-left: auto;
   font-size: 1.2rem;
@@ -79,31 +85,30 @@
   line-height: 1.4;
   margin-bottom: 0.5rem;
 }
-
 .meta {
   font-size: 0.8rem;
   color: #555;
   margin-bottom: 0.5rem;
 }
-
 .status {
   color: #27a33a;
   font-size: 0.75rem;
   font-weight: 600;
 }
 
-.arrow {
+/* ---------- nav arrows ---------- */
+.nav-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  border: none;
-  background: none;
+  z-index: 10;
   width: 36px;
   height: 36px;
+  background: none;
+  border: none;
   cursor: pointer;
 }
-
-.arrow::before {
+.nav-arrow::before {
   content: "";
   display: block;
   width: 36px;
@@ -112,40 +117,28 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-
-.arrow.right {
-  right: -10px;
+.prev {
+  left: -12px;
 }
-
-.arrow.right::before {
+.next {
+  right: -12px;
+}
+.next::before {
   transform: scaleX(-1);
 }
 
-.arrow.left {
-  left: -10px;
-}
-
-.dots {
-  margin: 1.5rem 0;
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.dot {
+/* ---------- pagination dots ---------- */
+.swiper-pagination-bullet {
   width: 10px;
   height: 10px;
-  border: none;
-  border-radius: 50%;
   background: #bfc4c9;
-  cursor: pointer;
+  opacity: 1;
 }
-
-.dot:focus,
-.dot:active {
+.swiper-pagination-bullet-active {
   background: #000;
 }
 
+/* ---------- view-more button ---------- */
 .view-more-btn {
   display: inline-block;
   padding: 0.85rem 2.5rem;
@@ -156,7 +149,6 @@
   border-radius: 4px;
   transition: background 0.2s ease;
 }
-
 .view-more-btn:hover {
   background: #333;
 }
