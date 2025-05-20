@@ -14,6 +14,7 @@ import { BlogHome } from "../components/blog";
 import { Login } from "../components/login";
 import { SignUp } from "../components/signUp";
 import { HomeValueForm } from "../components/homeValueForm";
+import { TermsOfUse } from "../components/termsOfUse";
 
 function App() {
   return (
@@ -149,6 +150,17 @@ function App() {
           <div className="app-signup-container">
             <Navbar />
             <SignUp onSubmit={(data) => console.log("Signup data:", data)} />
+            <Footer />
+            {/* <MortgageRate /> */}
+          </div>
+        }
+      />
+      <Route
+        path="terms-of-use"
+        element={
+          <div className="app-terms-of-use-container">
+            <Navbar />
+            <TermsOfUse />
             <Footer />
             {/* <MortgageRate /> */}
           </div>

@@ -73,7 +73,7 @@ export const Footer: React.FC = () => {
             />
           </div>
           <div className="footer-disc">
-            <a href="">TERMS OF USE</a>
+            <a href="/terms-of-use">TERMS OF USE</a>
             <a href="">PRIVACY NOTICE</a>
             <a href="">DMCA</a>
           </div>
