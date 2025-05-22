@@ -28,7 +28,7 @@ const cities: CityCard[] = [
     img: "/surprise.jpg",
     blurb:
       "Surprise combines new‑build neighborhoods, MLB spring training, and quick access to the White Tank Mountains.",
-    href: "/guides/surprise",
+    href: "../blog/homesForSaleInSurpriseAz",
   },
 ];
 
