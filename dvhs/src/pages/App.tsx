@@ -16,6 +16,7 @@ import { SignUp } from "../components/signUp";
 import { HomeValueForm } from "../components/homeValueForm";
 import { TermsOfUse } from "../components/termsOfUse";
 import { PrivacyPolicy } from "../components/privacyPolicy";
+import HomesForSaleInSurprise from "../blog/posts/homesForSaleInSurpriseAz";
 
 function App() {
   return (
@@ -129,6 +130,20 @@ function App() {
             <Navbar />
             <BlogHome />
             <div className="blog-content-box"></div>
+            <Footer />
+            {/* <MortgageRate /> */}
+          </div>
+        }
+      />
+      <Route
+        path="blog/:homes-for-sale-in-surprise-az"
+        element={
+          <div className="app-blog-detail-container">
+            <Navbar />
+            <HomesForSaleInSurprise />
+            <ContactForm
+              onSubmit={(data) => console.log("Contact form data:", data)}
+            />
             <Footer />
             {/* <MortgageRate /> */}
           </div>

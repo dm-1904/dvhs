@@ -1,5 +1,6 @@
 import React from "react";
 import { useSEO } from "./useSEO";
+import "../../css/blogPost.css";
 
 interface BlogPostProps {
   title: string;
