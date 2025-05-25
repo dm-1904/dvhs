@@ -1,118 +1,98 @@
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "../css/blog.css";
 
-interface Post {
-  id: number;
+interface PostFromAPI {
+  id: string;
   title: string;
+  description: string;
+  author: string;
   date: string;
-  image: string;
-  excerpt: string;
+  coverImg: string;
   slug: string;
-  category: string;
+  tags: string[]; // used as “categories”
+  content: string;
 }
 
-/* ───────────────────────────────────────────
-   Dummy data – replace with API call or CMS  */
-const ALL_POSTS: Post[] = [
-  {
-    id: 1,
-    title: "Phoenix Market Update – May 2025",
-    slug: "/blog/phoenix-market-update-may-2025",
-    image: "/blog/may_market.jpg",
-    excerpt: "Inventory is creeping up…",
-    date: "May 10, 2025",
-    category: "Market News",
-  },
-  {
-    id: 2,
-    title: "5 Pricing Mistakes in West Valley",
-    slug: "/blog/pricing-mistakes-west-valley",
-    image: "/blog/pricing_mistakes.jpg",
-    excerpt: "Setting the right price…",
-    date: "Apr 28, 2025",
-    category: "Seller Tips",
-  },
-  {
-    id: 3,
-    title: "Buyer’s Guide to Phoenix Suburbs",
-    slug: "/blog/buyers-guide-suburbs",
-    image: "/blog/buyers_guide.jpg",
-    excerpt: "What to look out for…",
-    date: "Apr 15, 2025",
-    category: "Buyer Tips",
-  },
-  {
-    id: 4,
-    title: "Understanding Mortgage Rates",
-    slug: "/blog/understanding-mortgage-rates",
-    image: "/blog/mortgage_rates.jpg",
-    excerpt: "Why rates fluctuate…",
-    date: "Apr 2, 2025",
-    category: "Finance",
-  },
-  {
-    id: 5,
-    title: "How to Stage Your Home",
-    slug: "/blog/how-to-stage-your-home",
-    image: "/blog/staging.jpg",
-    excerpt: "First impressions matter…",
-    date: "Mar 20, 2025",
-    category: "Seller Tips",
-  },
-  {
-    id: 6,
-    title: "Retirement Communities in Phoenix",
-    slug: "/blog/retirement-communities-phoenix",
-    image: "/blog/retirement_communities.jpg",
-    excerpt: "Discover the best retirement communities in Phoenix.",
-    date: "May 11, 2025",
-    category: "Retirement Communities",
-  },
-];
-
-const groupedPosts = ALL_POSTS.reduce<Record<string, Post[]>>((acc, post) => {
-  acc[post.category] = acc[post.category] || [];
-  acc[post.category].push(post);
-  return acc;
-}, {});
-
-const RECENT = ALL_POSTS.slice(-5).reverse();
+const API = import.meta.env.VITE_API_URL ?? "http://localhost:4000";
 
 export const BlogHome: React.FC = () => {
+  /* ---------------- state ---------------- */
+  const [posts, setPosts] = useState<PostFromAPI[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch(`${API}/posts`);
+        if (!res.ok) throw new Error(`API ${res.status}`);
+        const data: PostFromAPI[] = await res.json();
+        /* newest first – Prisma already orders by date DESC, but
+           we sort defensively in case that ever changes */
+        data.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+        setPosts(data);
+      } catch (e: unknown) {
+        console.error(e);
+        if (e instanceof Error) {
+          setError(e.message);
+        } else {
+          setError("Unknown error");
+        }
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  /* ---------------- derived helpers ---------------- */
+  /** Five most-recent posts */
+  const recent = useMemo(() => posts.slice(0, 5), [posts]);
+
+  /** Group by the post’s first tag (you can tweak) */
+  const grouped = useMemo(() => {
+    const map: Record<string, PostFromAPI[]> = {};
+    for (const p of posts) {
+      const cat = p.tags[0] ?? "Misc";
+      (map[cat] ||= []).push(p);
+    }
+    return map;
+  }, [posts]);
+
+  /* ---------------- render ---------------- */
+  if (loading) return <p className="blog-root">Loading posts…</p>;
+  if (error) return <p className="blog-root error">Error: {error}</p>;
 
   return (
     <div className="blog-root">
+      {/* ---------- slide-out menu ---------- */}
       <aside className={`post-menu ${menuOpen ? "open" : ""}`}>
         <button
           className="close-btn"
           onClick={() => setMenuOpen(false)}
           aria-label="Close menu"
         >
-          X
+          ×
         </button>
-        <h3>All Posts</h3>
-        {/* <ul>
-          {ALL_POSTS.map((post) => (
-            <li key={post.id}>
-              <a href={post.slug}>{post.title}</a>
-            </li>
-          ))}
-        </ul> */}
 
         <nav className="menu-categories">
-          {Object.entries(groupedPosts).map(([category, posts]) => (
-            <div className="category-section">
-              <h3>{category}</h3>
+          {Object.entries(grouped).map(([cat, list]) => (
+            <div
+              key={cat}
+              className="category-section"
+            >
+              <h3>{cat}</h3>
               <ul>
-                {posts.map((posts) => (
-                  <li key={posts.id}>
+                {list.map((p) => (
+                  <li key={p.id}>
                     <a
-                      href={posts.slug}
+                      href={p.slug}
                       onClick={() => setMenuOpen(false)}
                     >
-                      {posts.title}
+                      {p.title}
                     </a>
                   </li>
                 ))}
@@ -122,6 +102,7 @@ export const BlogHome: React.FC = () => {
         </nav>
       </aside>
 
+      {/* ---------- header ---------- */}
       <header className="blog-header">
         <button
           className="menu-btn"
@@ -134,25 +115,32 @@ export const BlogHome: React.FC = () => {
         <p className="synopsis">
           Welcome to your resource for up-to-date market insights, tips for
           buyers &amp; sellers, and everything happening in Greater Phoenix real
-          estate. We publish new posts regularly, so check back often!
+          estate. We publish new posts regularly&mdash;check back often!
         </p>
       </header>
 
+      {/* ---------- recent feed ---------- */}
       <section className="recent-feed">
-        {RECENT.map((post) => (
+        {recent.map((p) => (
           <a
-            key={post.id}
-            href={post.slug}
+            key={p.id}
+            href={p.slug}
             className="feed-item"
           >
             <img
-              src={post.image}
-              alt={post.title}
+              src={p.coverImg}
+              alt={p.title}
             />
             <div className="feed-info">
-              <h3>{post.title}</h3>
-              <time>{post.date}</time>
-              <p>{post.excerpt}</p>
+              <h3>{p.title}</h3>
+              <time dateTime={p.date}>
+                {new Date(p.date).toLocaleDateString(undefined, {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </time>
+              <p>{p.description}</p>
             </div>
           </a>
         ))}

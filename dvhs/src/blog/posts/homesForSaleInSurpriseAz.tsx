@@ -1,8 +1,8 @@
 // src/components/posts/HomesForSaleInSurprise.tsx
 import BlogPost from "../template/blogPost";
-import { jsxToHtml } from "../../utils/renderToHtml";
+// import { jsxToHtml } from "../../utils/renderToHtml";
 
-const API = import.meta.env.VITE_API_URL;
+// const API = import.meta.env.VITE_API_URL;
 
 const bodyJsx = (
   <>
@@ -156,6 +156,6 @@ export default function HomesForSaleInSurprise() {
     </BlogPost>
   );
 }
-console.log(import.meta.env.VITE_API_URL);
+// console.log(import.meta.env.VITE_API_URL);
 
 // publish();
