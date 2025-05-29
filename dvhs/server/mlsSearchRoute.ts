@@ -6,8 +6,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const API_KEY = process.env.SPARK_OAUTH_KEY;
-const API_SECRET = process.env.SPARK_OAUTH_SECRET;
+const API_KEY = process.env.SPARK_API_KEY;
+const API_SECRET = process.env.SPARK_API_SECRET;
 const API_URL = process.env.SPARK_API_URL;
 
 if (!API_KEY || !API_SECRET) {
@@ -57,7 +57,7 @@ function buildApiSig(servicePath: string, authToken: string) {
 
 const router = express.Router();
 
-router.get("/api/mls-search", async (req, res) => {
+router.get("/mls-search", async (req, res) => {
   try {
     const search = (req.query.query as string) ?? "";
     const authToken = await getAuthToken();

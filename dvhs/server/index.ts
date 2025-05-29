@@ -4,7 +4,7 @@ import mlsSearchRouter from "./mlsSearchRoute";
 
 const app = express();
 
-app.use(mlsSearchRouter);
+app.use("/api", mlsSearchRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`MLS proxy is running on port ${PORT}`));
