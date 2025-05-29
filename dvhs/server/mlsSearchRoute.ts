@@ -1,5 +1,5 @@
 console.log("Loading mlsSearchRoute...");
-import express from "express";
+import express, { Request, Response } from "express";
 import fetch from "node-fetch";
 import crypto from "crypto";
 import dotenv from "dotenv";
@@ -27,7 +27,10 @@ async function getAuthToken(): Promise<string> {
 
   const apiSig = md5(`${API_SECRET}ApiKey${API_KEY}`);
 
-  const url = `${API_URL}/session?ApiKey+${API_KEY}&ApiSig=${apiSig}`;
+  // const url = `${API_URL}/session?ApiKey+${API_KEY}&ApiSig=${apiSig}`;
+  const url = `${
+    API_URL ?? "https://sparkapi.com/v1"
+  }/session?ApiKey=${API_KEY}&ApiSig=${apiSig}`;
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error(`Spark session failed: ${res.status}`);
@@ -57,7 +60,7 @@ function buildApiSig(servicePath: string, authToken: string) {
 
 const router = express.Router();
 
-router.get("/mls-search", async (req, res) => {
+router.get("/mls-search", async (req: Request, res: Response) => {
   try {
     const search = (req.query.query as string) ?? "";
     const authToken = await getAuthToken();
@@ -69,16 +72,22 @@ router.get("/mls-search", async (req, res) => {
       "UnparsedAddress",
       "City",
       "StateOrProvince",
-      "ListingAgentFullName",
+      "ListAgentFullName",
       "Media",
     ].join(",");
+    // const filter = encodeURIComponent(
+    //   `Contains(UnparsedAddress, '${search}' or Contains(City, '${search}`
+    // );
     const filter = encodeURIComponent(
-      `Contains(UnparsedAddress, '${search}' or Contains(City, '${search}`
+      `Contains(UnparsedAddress,'${search}') or Contains(City,'${search}')`
     );
     const sparkUrl = `${API_URL}${servicePath}?ApiKey=${API_KEY}&AuthToken=${authToken}&ApiSig=${apiSig}&$select=${select}&$filter=${filter}&$top=30`;
     const sparkRes = await fetch(sparkUrl);
     if (!sparkRes.ok) {
-      throw new Error(`Spark listings failed: ${sparkRes.status}`);
+      const txt = await sparkRes.text();
+      console.error("Spark listings error:", sparkRes.status, txt);
+      res.status(sparkRes.status).send(txt);
+      return;
     }
     interface SparkListingsResponse {
       D?: {
