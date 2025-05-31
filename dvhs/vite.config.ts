@@ -1,43 +1,48 @@
-import { defineConfig } from "vite";
+// vite.config.ts
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 
-// ◉  If you need path aliases (optional):
-// import { resolve } from 'path';
-// const r = (p: string) => resolve(__dirname, p);
+export default defineConfig(({ mode }) => {
+  /* ── load *.env files so you can reference them with import.meta.env ── */
+  loadEnv(mode, process.cwd(), "");
 
-export default defineConfig({
-  plugins: [react()],
+  return {
+    plugins: [react()],
 
-  /**
-   * Dev-server settings
-   * ──────────────
-   *  ▸ Runs on 5173 by default
-   *  ▸ Proxies **ANY** request that starts with /api
-   *    to the Express proxy on port 5000
-   */
-  server: {
-    port: 5173, // optional (default 5173)
-    open: true, // auto-opens the browser
-    proxy: {
-      "/api": "http://localhost:5000",
+    /**
+     * Dev-server
+     * ──────────
+     * • runs on :5173
+     * • any request beginning with /api is proxied to the
+     *   Express server that’s listening on :5000
+     */
+    server: {
+      port: 5173,
+      open: true,
+      proxy: {
+        "/api": {
+          target: "http://localhost:5000",
+          changeOrigin: true, // sets correct host header for CORS
+          secure: false, // ignore self-signed certs in dev (HTTPS)
+        },
+      },
     },
-  },
 
-  /**
-   * Build settings (optional)
-   * Vite will emit the React app to /dist as usual.
-   */
-  build: {
-    outDir: "dist/client",
-    emptyOutDir: true,
-  },
+    /**
+     * Build output
+     */
+    build: {
+      outDir: "dist/client",
+      emptyOutDir: true,
+    },
 
-  /**
-   * Resolve aliases (un-comment if you want to use "@/" or similar)
-   */
-  // resolve: {
-  //   alias: {
-  //     '@': r('src')
-  //   }
-  // }
+    /**
+     * (Optional) path aliases
+     */
+    // resolve: {
+    //   alias: {
+    //     "@": path.resolve(__dirname, "src"),
+    //   },
+    // },
+  };
 });
