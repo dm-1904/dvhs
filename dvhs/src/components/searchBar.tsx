@@ -2,7 +2,7 @@
    SearchBar – requests   GET /api/listings?city=Surprise&state=AZ&top=25
                thumbnails GET /api/listings/:id/photo
  */
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import "../css/searchBar.css";
 import { ListingGrid } from "./mlsComponents/listingGrid";
 
@@ -32,6 +32,9 @@ function parseInput(raw: string): { city: string; state: string } | null {
   return { city, state };
 }
 
+const LS_RESULTS_KEY = "dvhs.results";
+const LS_QUERY_KEY = "dvhs.lastQuery";
+
 /* -------------- component --------------------------------------- */
 export default function SearchBar() {
   const [query, setQuery] = useState("");
@@ -40,6 +43,31 @@ export default function SearchBar() {
   const [error, setError] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
 
+  /* ---- load last results from localStorage --------------------- */
+  useEffect(() => {
+    const stored = localStorage.getItem(LS_RESULTS_KEY);
+    const lastQ = localStorage.getItem(LS_QUERY_KEY);
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored) as ListingSummary[];
+        setResults(parsed);
+        if (parsed.length) setHasSearched(true);
+      } catch {
+        /* ignore */
+      }
+    }
+    if (lastQ) {
+      setQuery(lastQ);
+    }
+  }, []);
+
+  /* ----- persist every change -----*/
+  useEffect(() => {
+    if (results.length) {
+      localStorage.setItem(LS_RESULTS_KEY, JSON.stringify(results));
+    }
+  }, [results]);
+
   /* ---- submit -------------------------------------------------- */
   const handleSearchSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -47,6 +75,8 @@ export default function SearchBar() {
 
     const parsed = parseInput(query);
     if (!parsed) return; // empty input -- do nothing
+
+    localStorage.setItem(LS_QUERY_KEY, query);
 
     setHasSearched(true);
     setLoading(true);
@@ -141,3 +171,6 @@ export default function SearchBar() {
     </section>
   );
 }
+// function useEffect(arg0: () => void, arg1: never[]) {
+//   throw new Error("Function not implemented.");
+// }
