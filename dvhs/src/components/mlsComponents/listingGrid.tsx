@@ -1,13 +1,14 @@
 import React from "react";
 import { ListingCard } from "./listingCard";
 import { ListingSummary } from "../searchBar";
+import "../../css/mlsComponents.css";
 
 interface ListingGridProps {
   listings: ListingSummary[];
 }
 
 export const ListingGrid: React.FC<ListingGridProps> = ({ listings }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div className="listing-grid">
     {listings.map((listing) => (
       <ListingCard
         key={listing.Id}
