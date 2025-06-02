@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 interface ListingSummary {
   Id: string;
-  ListPrice: number;
-  BedsTotal: number;
-  BathsTotal: number;
-  LivingArea: number;
-  MlsStatus: string;
-  UnparsedAddress: string;
-  thumbnail: string;
+  ListPrice?: number;
+  BedsTotal?: number;
+  BathsTotal?: number;
+  LivingArea?: number;
+  MlsStatus?: string;
+  UnparsedAddress?: string;
+  thumbnail?: string;
 }
 
 interface ListingCardProps {
@@ -17,20 +17,32 @@ interface ListingCardProps {
 }
 
 export const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
-  const priceStr = listing.ListPrice
-    ? "$" + listing.ListPrice.toLocaleString()
-    : "N/A";
+  const priceStr =
+    typeof listing.ListPrice === "number"
+      ? "$" + listing.ListPrice.toLocaleString()
+      : "N/A";
+
+  const beds = listing.BedsTotal ?? "—";
+  const baths = listing.BathsTotal ?? "—";
+  const area =
+    typeof listing.LivingArea === "number"
+      ? listing.LivingArea.toLocaleString()
+      : "—";
+
+  const status = listing.MlsStatus ?? "—";
+  const addr = listing.UnparsedAddress ?? "Address unavailable";
 
   return (
     <Link
       to={`/listing/${listing.Id}`}
       className="block bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow duration-300"
     >
+      {/* ── image ─────────────────────────────────────────────── */}
       <div className="relative">
         {listing.thumbnail ? (
           <img
             src={listing.thumbnail}
-            alt={listing.UnparsedAddress}
+            alt={addr}
             className="w-full h-48 object-cover"
             loading="lazy"
             onError={(e) => {
@@ -43,16 +55,17 @@ export const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
           </div>
         )}
         <span className="absolute top-2 left-2 bg-gray-800 text-white text-xs font-semibold px-2 py-1 rounded">
-          {listing.MlsStatus}
+          {status}
         </span>
       </div>
+
+      {/* ── text ──────────────────────────────────────────────── */}
       <div className="p-4">
         <p className="text-lg font-semibold text-gray-800">{priceStr}</p>
         <p className="text-sm text-gray-600">
-          {listing.BedsTotal} Beds | {listing.BathsTotal} Baths |{" "}
-          {listing.LivingArea.toLocaleString()} sq ft
+          {beds} Beds&nbsp;|&nbsp;{baths} Baths&nbsp;|&nbsp;{area}&nbsp;sq ft
         </p>
-        <p className="text-sm text-gray-800 mt-1">{listing.UnparsedAddress}</p>
+        <p className="text-sm text-gray-800 mt-1">{addr}</p>
       </div>
     </Link>
   );

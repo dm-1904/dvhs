@@ -1,20 +1,25 @@
 console.log("Starting server...");
-import express from "express";
 // import mlsSearchRouter from "./mlsSearchRoute";
 import fetch from "node-fetch";
+import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
 
+// app.get("/api/ping", function (_req: express.Request, res: express.Response) {
+//   res.send("pong");
+// });
 // app.use("/api", mlsSearchRouter);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 const API_URL = process.env.VITE_SPARK_API_URL;
 const API_ACCESS_TOKEN = process.env.VITE_SPARK_API_ACCESS_TOKEN;
 
 async function sparkGet(path: string) {
+  console.log("oauth", API_ACCESS_TOKEN);
   const resp = await fetch(`${API_URL}${path}`, {
+    // <<-----
     headers: {
       Authorization: `OAuth ${API_ACCESS_TOKEN}`,
       Accept: "application/json",
@@ -22,6 +27,7 @@ async function sparkGet(path: string) {
   });
   if (!resp.ok) {
     const txt = await resp.text();
+    console.error(`Spark API error: ${resp.status} ${txt}`);
     throw new Error(`Spark ${resp.status}: ${txt}`);
   }
   return resp.json();
@@ -37,57 +43,26 @@ interface Listing {
   UnparsedAddress: string;
 }
 
-// app.get(`/api/listings`, async (req, res) => {
-//   try {
-//     const q = req.query.search as string;
-//     const json = await sparkGet(
-//       `/listings?SearchQuery=${encodeURIComponent(q)}`
-//     );
-
-//     const results = (json.D?.Results ?? []).map((l: Listing) => {
-//       return {
-//         Id: l.Id,
-//         ListPrice: l.ListPrice,
-//         BedsTotal: l.BedsTotal,
-//         BathsTotal: l.BathsTotal,
-//         LivingArea: l.LivingArea,
-//         MlsStatus: l.MlsStatus,
-//         UnparsedAddress: l.UnparsedAddress,
-//       };
-//     });
-//     res.json({ results });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: (err as Error).message });
-//   }
-// });
-
 app.get("/api/listings", async (req, res) => {
   try {
-    const q = (req.query.search as string)?.trim();
-    if (!q) {
-      res.json({ results: [] });
+    const city = ((req.query.city as string) || "").replace(/'/g, "''");
+    const state = ((req.query.state as string) || "AZ").toUpperCase();
+    const top = Number(req.query.top) || 25;
+
+    if (!city) {
+      res.status(400).json({ error: "city query-param is required" });
       return;
     }
 
-    /* Build a very tolerant filter:
-       • looks for q in UnparsedAddress   (for “8429 E Del …” kind of searches)
-       • OR    in City                   (for “Surprise” / “Phoenix”)
-       • case-insensitive because Spark “contains” is insensitive by default
-    */
+    /* ✨ URL-encode the filter */
     const filter = encodeURIComponent(
-      `Contains(UnparsedAddress,'${q}') or Contains(City,'${q}')`
+      `City eq '${city}' and StateOrProvince eq '${state}'`
     );
+    const path = `/listings?_filter=${filter}&$top=${top}`;
 
-    // select only the fields the front-end needs
-    const select =
-      "Id,ListPrice,BedsTotal,BathsTotal,LivingArea,MlsStatus," +
-      "UnparsedAddress,StreetNumber,StreetDirPrefix,StreetName," +
-      "StreetSuffix,City,StateOrProvince,PostalCode";
+    // const path = `/listings?_filter=${filter}`;
 
-    const json = await sparkGet(
-      `/listings?$filter=${filter}&$select=${select}&$top=60`
-    );
+    const json = await sparkGet(path); // <<-----
 
     const results = (json.D?.Results ?? []).map((l: Listing) => ({
       Id: l.Id,
@@ -102,14 +77,15 @@ app.get("/api/listings", async (req, res) => {
     res.json({ results });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: (err as Error).message });
+    const e = err as Error & { status?: number };
+    res.status(e.status || 500).json({ error: e.message });
   }
 });
 
 app.get(`/api/Listings/:Id/photo`, async (req, res) => {
   try {
     const { Id } = req.params;
-    const json = await sparkGet(`/listings/${Id}/photos?$top=1`);
+    const json = await sparkGet(`/listings/${Id}/photos?$top=1`); // <<-----
     const uri = json.D?.Results?.[0]?.Uri640 || "";
     res.json({ uri });
   } catch (err) {

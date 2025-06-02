@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
       open: true,
       proxy: {
         "/api": {
-          target: "http://localhost:5000",
+          target: "http://localhost:5001",
           changeOrigin: true, // sets correct host header for CORS
           secure: false, // ignore self-signed certs in dev (HTTPS)
         },

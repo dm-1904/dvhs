@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "concurrently \"vite\" \"nodemon --watch server --exec node -r ts-node/register ./server/index.ts\"",
+    "dev": "vite",
+    "nodemon": "nodemon --watch server --ext ts,tsx --exec ts-node server/index.ts",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint ."
