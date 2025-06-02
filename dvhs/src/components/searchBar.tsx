@@ -43,6 +43,7 @@ export default function SearchBar() {
   /* ---- submit -------------------------------------------------- */
   const handleSearchSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    // localStorage.removeItem("lastResults");
 
     const parsed = parseInput(query);
     if (!parsed) return; // empty input -- do nothing
