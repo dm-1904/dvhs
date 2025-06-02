@@ -33,6 +33,13 @@
   background: #fff;
 }
 
+.search-bar-box input:focus {
+  outline: none;
+  border-top: 1px solid #cfd7de;
+  border-bottom: 1px solid #cfd7de;
+  border-left: 1px solid #cfd7de;
+}
+
 .search-bar-box form .clear-btn,
 .search-bar-box form .submit-btn {
   max-width: 130px;
