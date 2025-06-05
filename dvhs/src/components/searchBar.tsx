@@ -1,12 +1,29 @@
 /*
    SearchBar – requests   GET /api/listings?city=Surprise&state=AZ&top=25
                thumbnails GET /api/listings/:id/photo
+
+  This query works in postman:
+  /listings?_filter=City%20Eq%20'Surprise'%20And%20StateOrProvince%20Eq%20'AZ'
+  %20And%20PropertyClass%20Ne%20'Rental'%20And%20PropertySubType%20Eq%20'Single
+  %20Family%20Residence'%20And%20LivingArea%20Ge%201800%20And%20BedsTotal%20Ge%204
+  %20And%20BathsTotal%20Ge%203%20And%20ListPrice%20Ge%20600000
+  &$select=ListingKey,ListPrice,BedsTotal,BathsTotal,LivingArea,UnparsedAddress,MlsStatus&$top=25
+
  */
 import { FormEvent, useState, useEffect } from "react";
 import "../css/searchBar.css";
 import { ListingGrid } from "./mlsComponents/listingGrid";
+import { PriceModal } from "./mlsComponents/mlsModals/priceModal";
 
-/* -------------- shared type ------------------------------------- */
+interface FiltersState {
+  priceMin: string;
+  priceMax: string;
+  bedsMin: string;
+  bathsMin: string;
+  propertyTypes: string[];
+  seniorOnly: boolean;
+}
+
 export interface ListingSummary {
   Id: string;
   ListPrice: number;
@@ -42,6 +59,7 @@ export default function SearchBar() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
+  const [priceModalOpen, setPriceModalOpen] = useState(false);
 
   /* ---- load last results from localStorage --------------------- */
   useEffect(() => {
@@ -150,10 +168,19 @@ export default function SearchBar() {
 
       {/* ▸ dummy filter buttons – left unchanged */}
       <div className="search-bar-filter-row">
-        <button className="search-bar-filter-btn">Price ▾</button>
-        <button className="search-bar-filter-btn">Beds & Baths ▾</button>
-        <button className="search-bar-filter-btn">Home Type ▾</button>
-        <button className="search-bar-filter-btn">More ▾</button>
+        <button
+          className="search-bar-filter-btn-price"
+          onClick={() => setPriceModalOpen(true)}
+        >
+          Price ▾
+        </button>
+        <PriceModal
+          isOpen={priceModalOpen}
+          onClose={() => setPriceModalOpen(false)}
+        />
+        <button className="search-bar-filter-btn-beds">Beds & Baths ▾</button>
+        <button className="search-bar-filter-btn-home-type">Home Type ▾</button>
+        <button className="search-bar-filter-btn-more">More ▾</button>
         <button className="search-bar-save-btn">Save search</button>
       </div>
 

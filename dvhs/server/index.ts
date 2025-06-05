@@ -67,7 +67,7 @@ app.get("/api/listings", async (req, res) => {
 
     /* ------------- build Spark query -------------------------------- */
     const filter = encodeURIComponent(
-      `City eq '${city}' and StateOrProvince eq '${state}'`
+      `City eq '${city}' and StateOrProvince eq '${state}' and PropertyClass ne 'Rental'`
     );
 
     const SELECT =

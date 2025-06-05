@@ -67,7 +67,10 @@
   align-items: center;
 }
 
-.search-bar-filter-btn {
+.search-bar-filter-btn-price,
+.search-bar-filter-btn-beds,
+.search-bar-filter-btn-home-type,
+.search-bar-filter-btn-more {
   height: 48px;
   background: #fff;
   border: 1px solid #cfd7de;
@@ -80,7 +83,10 @@
   transition: border-color 0.2s ease;
 }
 
-.search-bar-filter-btn:hover {
+.search-bar-filter-btn-beds:hover,
+.search-bar-filter-btn-home-type:hover,
+.search-bar-filter-btn-more:hover,
+.search-bar-filter-btn-price:hover {
   border-color: #999;
 }
 

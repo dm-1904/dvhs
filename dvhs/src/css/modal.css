@@ -1,0 +1,33 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: rgb(231, 231, 231);
+  height: 80vh;
+  max-height: 500px;
+  width: 80vw;
+  max-width: 400px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-close-btn {
+  margin-top: auto;
+  align-self: center;
+  margin-bottom: 10px;
+  width: 90%;
+  height: 30px;
+}
