@@ -13,12 +13,15 @@ export const PriceModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     <div className="modal">
       <div className="modal-content">
         <h2>Price Range</h2>
-        <button
-          className="modal-close-btn search-bar-save-btn"
-          onClick={onClose}
-        >
-          Close Without Saving
-        </button>
+        <div className="price-modal-btns">
+          <button className="modal-close-btn search-bar-save-btn">Apply</button>
+          <button
+            className="modal-close-btn search-bar-save-btn"
+            onClick={onClose}
+          >
+            Close Without Saving
+          </button>
+        </div>
       </div>
     </div>
   );

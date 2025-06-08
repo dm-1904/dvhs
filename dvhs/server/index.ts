@@ -1,8 +1,12 @@
 import dotenv from "dotenv";
 import express from "express";
 import fetch from "node-fetch";
+import type { LeadUpload } from "../src/schemas/leadUploadSchema";
+import { PrismaClient } from "@prisma/client";
 
 dotenv.config();
+
+const prisma = new PrismaClient();
 
 console.log("Starting server…");
 
@@ -117,6 +121,27 @@ app.get("/api/listings/:Id/photo", async (req, res) => {
   } catch (err) {
     const e = err as Error & { status?: number };
     res.status(e.status || 500).json({ error: e.message });
+  }
+});
+
+/* ------------------------------------------------------------------ */
+/*  GET /api/lead                                                    */
+/* ------------------------------------------------------------------ */
+app.get("/api/lead", async (req, res) => {
+  const leads: LeadUpload[] = req.body;
+  try {
+    const result = await prisma.lead.createMany({
+      data: leads,
+      skipDuplicates: true,
+    });
+
+    res.status(201).json({
+      message: `${result.count} leads created successfully.`,
+      inserted: result.count,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create leads." });
   }
 });
 
