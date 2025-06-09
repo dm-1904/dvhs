@@ -1,19 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
     "resolveJsonModule": true,
-    "types": ["node"]
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@schemas/*": ["../common/schemas/*"]
+    },
+    "types": ["vite/client"] // or "react" if you're not using Vite
   },
-
-  "include": ["src", "server"],
-
-  "files": [],
-
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "include": ["src", "../common"],
+  "exclude": ["dist", "server"]
 }

@@ -1,8 +1,7 @@
-// src/components/posts/HomesForSaleInSurprise.tsx
 import BlogPost from "../template/blogPost";
-// import { jsxToHtml } from "../../utils/renderToHtml";
+import { jsxToHtml } from "../../utils/renderToHtml";
 
-// const API = import.meta.env.VITE_API_URL;
+const API = import.meta.env.VITE_API_URL;
 
 const bodyJsx = (
   <>
@@ -120,26 +119,26 @@ const bodyJsx = (
   </>
 );
 
-// const bodyHtml = jsxToHtml(bodyJsx);
+const bodyHtml = jsxToHtml(bodyJsx);
 
-// async function publish() {
-//   await fetch(`${API}/posts`, {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({
-//       title:
-//         "Homes for Sale in Surprise AZ: Why Everyone's Suddenly Talking About This Hidden Gem",
-//       description:
-//         "Discover why homes for sale in Surprise AZ are attracting attention. Learn about neighborhoods, prices, and the lifestyle that makes this West Valley city special.",
-//       author: "Damon Ryon",
-//       date: "2025-05-21",
-//       coverImg: "/surprise.jpg",
-//       slug: "/blog/homes-for-sale-in-surprise-az",
-//       tags: ["Surprise AZ"],
-//       content: bodyHtml,
-//     }),
-//   });
-// }
+async function publish() {
+  await fetch(`${API}/posts`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      title:
+        "Homes for Sale in Surprise AZ: Why Everyone's Suddenly Talking About This Hidden Gem",
+      description:
+        "Discover why homes for sale in Surprise AZ are attracting attention. Learn about neighborhoods, prices, and the lifestyle that makes this West Valley city special.",
+      author: "Damon Ryon",
+      date: "2025-05-21",
+      coverImg: "/surprise.jpg",
+      slug: "/blog/homes-for-sale-in-surprise-az",
+      tags: ["Surprise AZ"],
+      content: bodyHtml,
+    }),
+  });
+}
 
 export default function HomesForSaleInSurprise() {
   return (
@@ -156,6 +155,6 @@ export default function HomesForSaleInSurprise() {
     </BlogPost>
   );
 }
-// console.log(import.meta.env.VITE_API_URL);
+console.log(import.meta.env.VITE_API_URL);
 
-// publish();
+publish();

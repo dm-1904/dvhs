@@ -1,7 +1,10 @@
 import React from "react";
 import * as XLSX from "xlsx";
 import axios from "axios";
-import { LeadUploadSchema, LeadUpload } from "../schemas/leadUploadSchema";
+import {
+  LeadUploadSchema,
+  LeadUpload,
+} from "../../../../common/schemas/leadUploadSchema";
 import { z } from "zod";
 
 export const UploadSpreadsheet = () => {

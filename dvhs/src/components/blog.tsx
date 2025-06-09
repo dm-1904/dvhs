@@ -26,7 +26,9 @@ export const BlogHome: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(`${API}/posts`);
+        console.log("BEFORE FETCH: Fetching posts from API:", API);
+        const res = await fetch(`${API}/api/posts`);
+        console.log("AFTER FETCH: Response status:", res.status);
         if (!res.ok) throw new Error(`API ${res.status}`);
         const data: PostFromAPI[] = await res.json();
         /* newest first – Prisma already orders by date DESC, but
