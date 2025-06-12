@@ -17,6 +17,7 @@ import { HomeValueForm } from "../components/homeValueForm";
 import { TermsOfUse } from "../components/termsOfUse";
 import { PrivacyPolicy } from "../components/privacyPolicy";
 import HomesForSaleInSurprise from "../blog/posts/homesForSaleInSurpriseAz";
+import { UploadSpreadsheet } from "../components/fileUpload";
 
 function App() {
   return (
@@ -167,6 +168,16 @@ function App() {
             <Navbar />
             <SignUp onSubmit={(data) => console.log("Signup data:", data)} />
             <Footer />
+            {/* <MortgageRate /> */}
+          </div>
+        }
+      />
+      <Route
+        path="file-upload"
+        element={
+          <div className="app-file-upload-container">
+            <h1>File Upload</h1>
+            <UploadSpreadsheet />
             {/* <MortgageRate /> */}
           </div>
         }
