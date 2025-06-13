@@ -15,14 +15,14 @@ import "../css/searchBar.css";
 import { ListingGrid } from "./mlsComponents/listingGrid";
 import { PriceModal } from "./mlsComponents/mlsModals/priceModal";
 
-interface FiltersState {
-  priceMin: string;
-  priceMax: string;
-  bedsMin: string;
-  bathsMin: string;
-  propertyTypes: string[];
-  seniorOnly: boolean;
-}
+// interface FiltersState {
+//   priceMin: string;
+//   priceMax: string;
+//   bedsMin: string;
+//   bathsMin: string;
+//   propertyTypes: string[];
+//   seniorOnly: boolean;
+// }
 
 export interface ListingSummary {
   Id: string;
