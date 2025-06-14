@@ -10,6 +10,7 @@
   gap: 0.25rem;
   user-select: none;
   transition: background 0.15s;
+  width: 90px;
 }
 
 .psb-btn:hover {

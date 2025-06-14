@@ -68,7 +68,7 @@ export default function SearchBar() {
   const [bedBathOpen, setBedBathOpen] = useState(false);
   const [ptypeModalOpen, setPtypeModalOpen] = useState(false);
 
-  const [priceOrder, setPriceOrder] = useState<"asc" | "desc">("asc");
+  const [priceOrder, setPriceOrder] = useState<"asc" | "desc">("desc");
 
   const [filters, setFilters] = useState<FiltersState>({
     priceMin: "",
@@ -126,6 +126,7 @@ export default function SearchBar() {
       sqftMin: custom.sqftMin,
       den: custom.den ? "true" : "",
       propertyTypes: custom.propertyTypes.join(","),
+      sort: priceOrder,
     });
 
     try {
