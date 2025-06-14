@@ -80,3 +80,24 @@
     width: 100%;
   }
 }
+
+/* Bed / Bath Modal */
+#bed-bath-inputs {
+  flex-direction: column;
+}
+
+.den-office-checkbox {
+  margin: 0.75rem 0 1.25rem;
+}
+
+.den-office-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.den-office-checkbox input {
+  width: 20px;
+  height: 20px;
+  align-self: flex-start;
+}
