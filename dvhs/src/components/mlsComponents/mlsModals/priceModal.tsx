@@ -48,7 +48,6 @@ export const PriceModal: React.FC<ModalProps> = ({
             className="modal-close-btn search-bar-save-btn"
             onClick={() => {
               onApply(minPrice, maxPrice);
-              onClose();
             }}
           >
             Apply
