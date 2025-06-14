@@ -13,6 +13,8 @@ import "../css/searchBar.css";
 import { ListingGrid } from "./mlsComponents/listingGrid";
 import { PriceModal } from "./mlsComponents/mlsModals/priceModal";
 import { BedBathModal } from "./mlsComponents/mlsModals/bedBathModal";
+import { PropertyTypeModal } from "./mlsComponents/mlsModals/homeType";
+import { ActiveFiltersBar } from "./mlsComponents/activeFiltersBar";
 
 /* ──────────────────────── shared types ──────────────────────── */
 export interface ListingSummary {
@@ -26,7 +28,7 @@ export interface ListingSummary {
   thumbnail: string; // filled client-side
 }
 
-interface FiltersState {
+export interface FiltersState {
   priceMin: string;
   priceMax: string;
   bedsMin: string;
@@ -63,6 +65,7 @@ export default function SearchBar() {
   /* ---------- filters & modal state -------------- */
   const [priceOpen, setPriceOpen] = useState(false);
   const [bedBathOpen, setBedBathOpen] = useState(false);
+  const [ptypeModalOpen, setPtypeModalOpen] = useState(false);
 
   const [filters, setFilters] = useState<FiltersState>({
     priceMin: "",
@@ -82,7 +85,9 @@ export default function SearchBar() {
       try {
         setResults(JSON.parse(cached));
         setHasSearched(true);
-      } catch {}
+      } catch {
+        // ignore invalid JSON
+      }
     }
     if (lastQ) setQuery(lastQ);
   }, []);
@@ -221,11 +226,48 @@ export default function SearchBar() {
         />
 
         {/* (future) Home Type & More buttons */}
-        <button className="search-bar-filter-btn-home-type">Home Type ▾</button>
+        <button
+          className="search-bar-filter-btn-home-type"
+          onClick={() => setPtypeModalOpen(true)}
+        >
+          Home Type ▾
+        </button>
+
+        <PropertyTypeModal
+          isOpen={ptypeModalOpen}
+          onClose={() => setPtypeModalOpen(false)}
+          onApply={(types) => {
+            const next = { ...filters, propertyTypes: types };
+            setFilters(next);
+            runSearch(next); // immediately re-search
+          }}
+        />
+
         <button className="search-bar-filter-btn-more">More ▾</button>
 
         <button className="search-bar-save-btn">Save search</button>
       </div>
+
+      <ActiveFiltersBar
+        filters={filters}
+        onUpdate={(next) => {
+          setFilters(next);
+          runSearch(next); // immediately re-query
+        }}
+        onReset={() => {
+          const cleared: FiltersState = {
+            priceMin: "",
+            priceMax: "",
+            bedsMin: "",
+            bathsMin: "",
+            sqftMin: "",
+            den: false,
+            propertyTypes: [],
+          };
+          setFilters(cleared);
+          runSearch(cleared);
+        }}
+      />
 
       {/* ▸ feedback + results */}
       {error && <p className="text-red-600 mb-4">{error}</p>}
