@@ -1,0 +1,17 @@
+.psb-btn {
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.psb-btn:hover {
+  background: #f1f1f1;
+}

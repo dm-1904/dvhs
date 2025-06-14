@@ -15,6 +15,7 @@ import { PriceModal } from "./mlsComponents/mlsModals/priceModal";
 import { BedBathModal } from "./mlsComponents/mlsModals/bedBathModal";
 import { PropertyTypeModal } from "./mlsComponents/mlsModals/homeType";
 import { ActiveFiltersBar } from "./mlsComponents/activeFiltersBar";
+import { PriceFilter } from "./priceFilter";
 
 /* ──────────────────────── shared types ──────────────────────── */
 export interface ListingSummary {
@@ -66,6 +67,8 @@ export default function SearchBar() {
   const [priceOpen, setPriceOpen] = useState(false);
   const [bedBathOpen, setBedBathOpen] = useState(false);
   const [ptypeModalOpen, setPtypeModalOpen] = useState(false);
+
+  const [priceOrder, setPriceOrder] = useState<"asc" | "desc">("asc");
 
   const [filters, setFilters] = useState<FiltersState>({
     priceMin: "",
@@ -266,6 +269,14 @@ export default function SearchBar() {
           };
           setFilters(cleared);
           runSearch(cleared);
+        }}
+      />
+
+      <PriceFilter
+        order={priceOrder}
+        onChange={(next) => {
+          setPriceOrder(next);
+          runSearch(); // re-query immediately with new order
         }}
       />
 
